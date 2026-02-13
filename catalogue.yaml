@@ -6,14 +6,14 @@
     ansible.builtin.command: dnf module disable nodejs -y
   - name: instal nodejs
     ansible.builtin.dnf:
-      name: nodejs:20
+      name: nodejs
       state: present
   - name: add system user roboshop
     ansible.builtin.user:
       name: roboshop
       comment: "System User for Automation"
       system: yes
-      create_home: /app
+      home: /app
       shell: /sbin/nologin
       state: present
   - name: create a folder for app
@@ -23,7 +23,7 @@
   - name: download the package
     ansible.builtin.get_url:
       url: https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip
-      dest: /tmp
+      dest: /tmp/catalogue.zip
 
   - name: unarchive the package
     ansible.builtin.unarchive:
